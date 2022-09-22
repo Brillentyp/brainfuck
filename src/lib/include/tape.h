@@ -17,3 +17,5 @@ tape* create_tape(uint64_t neg_len, uint64_t pos_len);
 cell_t get_tape_cell(tape* t, uint64_t position);
 void increment_cell(tape* t, uint64_t position);
 void decrement_cell(tape* t, uint64_t position);
+void destroy_tape(tape *t);
+#endif

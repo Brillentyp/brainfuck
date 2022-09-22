@@ -92,3 +92,9 @@ uint64_t log_ceil(uint64_t num) {
         log++;
     return log;
 }
+
+void destroy_tape(tape *t){
+    free(t->negative);
+    free(t->positive);
+    free(t);
+}
