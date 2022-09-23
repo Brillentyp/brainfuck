@@ -1,3 +1,5 @@
+#ifndef TAPE_H
+#define TAPE_H
 #include <stdint.h>
 typedef uint8_t cell_t;
 
@@ -14,8 +16,9 @@ typedef struct {
 } tape;
 
 tape* create_tape(uint64_t neg_len, uint64_t pos_len);
-cell_t get_tape_cell(tape* t, uint64_t position);
-void increment_cell(tape* t, uint64_t position);
-void decrement_cell(tape* t, uint64_t position);
+cell_t get_tape_cell(tape* t, int64_t position);
+void increment_cell(tape* t, int64_t position);
+void decrement_cell(tape* t, int64_t position);
+void set_cell(tape *t, int64_t position, cell_t val);
 void destroy_tape(tape *t);
 #endif
