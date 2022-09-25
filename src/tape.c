@@ -1,4 +1,4 @@
-#include "tape.h"
+#include <brainfuck/tape.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>

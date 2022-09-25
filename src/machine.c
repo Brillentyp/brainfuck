@@ -1,4 +1,4 @@
-#include "machine.h"
+#include <brainfuck/machine.h>
 #include <stdlib.h>
 #include <stdio.h>
 

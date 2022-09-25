@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "machine.h"
-#include "tape.h"
+#include <brainfuck/machine.h>
+#include <brainfuck/tape.h>
 
 int main() {
     printf("hi\n");
