@@ -2,6 +2,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+enum commands {
+    // > - move the pointer right
+    MOVE_POINTER_RIGHT = '>',
+    // < - move the pointer left
+    MOVE_POINTER_LEFT = '<',
+    // + - increment the current cell
+    INCREMENT_CELL = '+',
+    // - - decrement the current cell
+    DECREMENT_CELL = '-',
+    // . - output the value of the current cell
+    OUTPUT = '.',
+    // , - replace the value of the current cell with input
+    INPUT = ',',
+    // [ - jump to the matching ] instruction if the current value is zero
+    JUMP_ZERO = '[',
+    // ] - jump to the matching [ instruction if the current value is not zero
+    JUMP_NOT_ZERO = ']'
+};
+
 void find_next(state* s, char* program, char next, int direction) {
     /**
      *  Find next occurence of the next character and set the pc of the state to
@@ -14,12 +33,12 @@ void find_next(state* s, char* program, char next, int direction) {
 }
 
 void find_coresponding_jump(state* s, char* program, char c) {
-    if(c != ']' && c != '[')
+    if(c != JUMP_NOT_ZERO && c != JUMP_ZERO)
         return;
     
-    int step = c == ']' ? 1 : -1;
-    char c_count_up = c == ']' ? '[' : ']';
-    char c_count_down = c == ']' ? ']' : '[';
+    int step = c == JUMP_NOT_ZERO ? 1 : -1;
+    char c_count_up = c == JUMP_NOT_ZERO ? JUMP_ZERO : JUMP_NOT_ZERO;
+    char c_count_down = c == JUMP_NOT_ZERO ? JUMP_NOT_ZERO : JUMP_ZERO;
 
     int count = 1;
     while (count != 0){
@@ -46,8 +65,8 @@ int64_t execute_instruction(state* s, char* program) {
     // ignores all characters that are not brainfuck instruction
 
     /*
-    > - move the pointer right
-    < - move the pointer left
+    
+    
     + - increment the current cell
     - - decrement the current cell
     . - output the value of the current cell
@@ -59,34 +78,34 @@ int64_t execute_instruction(state* s, char* program) {
     int64_t ret = NO_OUTPUT;
 
     switch (program[s->pc]) {
-        case '>':
+        case MOVE_POINTER_RIGHT:
             s->ac++;
             break;
-        case '<':
+        case MOVE_POINTER_LEFT:
             s->ac--;
             break;
-        case '+':
+        case INCREMENT_CELL:
             increment_cell(s->t, s->ac);
             break;
-        case '-':
+        case DECREMENT_CELL:
             decrement_cell(s->t, s->ac);
             break;
-        case '.':
+        case OUTPUT:
             ret = get_tape_cell(s->t, s->ac);
             break;
-        case ',':
+        case INPUT:
             ret = NEED_INPUT;
             break;
-        case '[':
+        case JUMP_ZERO:
             // TODO: is more complex. Does have to be the fitting ], not just
             // the next one (idea: save tuples with ac of [])
             if (get_tape_cell(s->t, s->ac) == 0) {
-                find_coresponding_jump(s, program, ']');
+                find_coresponding_jump(s, program, JUMP_NOT_ZERO);
             }
             break;
-        case ']':
+        case JUMP_NOT_ZERO:
             if (get_tape_cell(s->t, s->ac) != 0) {
-                find_coresponding_jump(s, program, '[');
+                find_coresponding_jump(s, program, JUMP_ZERO);
             }
             break;
         case '\0':
