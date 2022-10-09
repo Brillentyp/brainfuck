@@ -53,8 +53,9 @@ void check_reallocate(tape* t, int64_t position) {
 tape* create_tape(uint64_t neg_len, uint64_t pos_len) {
     // creates tape. Returns NULL on Error
     // calloc initializes memory to 0 (realloc does not though)
-    cell_t* arr_neg = calloc(neg_len, sizeof(cell_t));
-    cell_t* arr_pos = calloc(neg_len, sizeof(cell_t));
+    // calloc may return NULL for nmemb == 0, avoid unnecessary error
+    cell_t* arr_neg = calloc(neg_len < 1 ? 1 : neg_len, sizeof(cell_t));
+    cell_t* arr_pos = calloc(pos_len < 1 ? 1 : pos_len, sizeof(cell_t));
 
     if (arr_neg == NULL || arr_pos == NULL)
         return NULL;
