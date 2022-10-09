@@ -1,0 +1,6 @@
+add_executable(tape_tests tape_tests.c)
+target_link_libraries(tape_tests check)
+target_link_libraries(tape_tests brainfuck_lib)
+enable_testing()
+add_test(NAME tape_tests COMMAND tape_tests)
+target_include_directories(tape_tests PUBLIC ../include)

@@ -7,3 +7,7 @@ add_subdirectory(src)
 
 # executable
 add_subdirectory(app)
+
+add_subdirectory(tests)
+
+enable_testing()
