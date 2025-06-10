@@ -1,3 +1,7 @@
 .vscode/
 build
 debug
+test_programs
+.cache/
+compile_commands.json
+

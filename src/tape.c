@@ -57,8 +57,11 @@ tape* create_tape(uint64_t neg_len, uint64_t pos_len) {
     cell_t* arr_neg = calloc(neg_len < 1 ? 1 : neg_len, sizeof(cell_t));
     cell_t* arr_pos = calloc(pos_len < 1 ? 1 : pos_len, sizeof(cell_t));
 
-    if (arr_neg == NULL || arr_pos == NULL)
+    if (arr_neg == NULL || arr_pos == NULL){
+        free(arr_neg);
+        free(arr_pos);
         return NULL;
+    }
 
     tape* ret_tape = malloc(sizeof(tape));
     // compound literals
@@ -66,6 +69,7 @@ tape* create_tape(uint64_t neg_len, uint64_t pos_len) {
                        .negative = arr_neg,
                        .pos_len = pos_len,
                        .neg_len = neg_len};
+    return ret_tape;
 }
 
 // TODO: do error handling

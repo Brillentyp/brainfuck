@@ -12,5 +12,6 @@ typedef struct {
 } state;
 
 int64_t execute_instruction(state* s, char* program);
-void input(state *s, cell_t input);
+void input_char(state *s, cell_t input);
+void input_end(state *s);
 state* create_state(uint64_t pc, int64_t ac, tape* t);

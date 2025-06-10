@@ -1,6 +1,5 @@
 #include <brainfuck/machine.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 enum commands {
     // > - move the pointer right
@@ -53,8 +52,12 @@ void find_coresponding_jump(state* s, char* program, char c) {
     
 }
 
-void input(state* s, cell_t input) {
+void input_char(state* s, cell_t input) {
     set_cell(s->t, s->ac, input);
+}
+
+void input_end(state* s){
+    s->pc++;
 }
 
 int64_t execute_instruction(state* s, char* program) {
